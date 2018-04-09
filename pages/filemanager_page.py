@@ -13,23 +13,23 @@ class FileManagerPage(BaseAction):
     # 菜单
     menu_button = By.ID,"com.cyanogenmod.filemanager:id/ab_actions"
     # make_dir = By.ID, "com.cyanogenmod.filemanager:id/two_columns_menu1_item_text"
-    make_dir = By.XPATH, ("text", "新建文件夹")
-    make_file = By.XPATH, ("text", "新建文件")
-    param = By.XPATH, ("text", "属性")
-    reflash_button = By.XPATH, ("text", "刷新")
-    all_select_button = By.XPATH, ("text", "全部选择")
-    no_all_select_button = By.XPATH,("text", "取消全选")
-    add_book_button = By.XPATH, ("text", "添加到书签")
-    add_kj = By.XPATH, ("text", "添加快捷方式")
-    setashome = By.XPATH, ("text", "Set as home")
-    cansel = By.XPATH, ("text", "取消")
+    make_dir = By.XPATH, ("text,新建文件夹")
+    make_file = By.XPATH, ("text,新建文件")
+    param = By.XPATH, ("text,属性")
+    reflash_button = By.XPATH, ("text,刷新")
+    all_select_button = By.XPATH, ("text,全部选择")
+    no_all_select_button = By.XPATH,("text,取消全选")
+    add_book_button = By.XPATH, ("text,添加到书签")
+    add_kj = By.XPATH, ("text,添加快捷方式")
+    setashome = By.XPATH, ("text,Set as home")
+    cansel = By.XPATH, ("text,取消")
 
-    move_select = By.XPATH, ("text", "移动选择项")
+    move_select = By.XPATH, ("text,移动选择项")
 
     # 新建文件夹,文件
     input_button = By.CLASS_NAME, "android.widget.EditText"
-    sure_button = By.XPATH, ("text","确定")
-    cansel_button = By.XPATH, ("text","取消")
+    sure_button = By.XPATH, ("text,确定")
+    cansel_button = By.XPATH, ("text,取消")
     # 全选后查看
 
 
@@ -42,15 +42,15 @@ class FileManagerPage(BaseAction):
     file_dir_name = By.ID, "com.cyanogenmod.filemanager:id/breadcrumb_item"
 
     # 文件夹
-    aaa = By.XPATH, ("text", "aaa")
-    zzz = By.XPATH, ("text", "zzz")
+    aaa = By.XPATH, ("text,aaa")
+    zzz = By.XPATH, ("text,zzz")
 
     # 新建文件夹
     def makedir(self, dirnanme):
         self.click(self.menu_button)
         self.click(self.make_dir)
         self.send_keys(self.input_button, dirnanme)
-        cz = By.XPATH, ("text", dirnanme)
+        cz = By.XPATH, ("text,"+dirnanme)
         if self.find_element(cz):
             self.click(self.cansel)
             self.click(self.cansel)
@@ -64,7 +64,7 @@ class FileManagerPage(BaseAction):
     # 创建文件
     def makefile(self, filename):
         for i in range(5):
-            cz = By.XPATH,("text", filename + str(i) + ".txt")
+            cz = By.XPATH,("text,"+filename + str(i) + ".txt")
             self.click(self.menu_button)
             # self.click(self.make_file)
             self.find_elements(self.make_file)[1].click()
@@ -119,7 +119,7 @@ class FileManagerPage(BaseAction):
     check_box = By.ID,"com.cyanogenmod.filemanager:id/navigation_view_item_check"
     # 点击复选框
     def click_checkbox(self,filename):
-        ele_filename = By.XPATH,("text",filename)
+        ele_filename = By.XPATH,("text,"+filename)
         ele0 = self.find_element(ele_filename)
         eles = self.find_elements(self.check_box)
         for ele in eles:
@@ -128,7 +128,7 @@ class FileManagerPage(BaseAction):
                 break
     # 属性
     def click_param(self,filename):
-        ele_name = By.XPATH,("text",filename)
+        ele_name = By.XPATH,("text,"+filename)
         self.click(self.menu_button)
         self.click(self.param)
         if self.find_element(ele_name) == None:
@@ -138,7 +138,7 @@ class FileManagerPage(BaseAction):
     up_button = By.ID,"android:id/up"
     # 添加书签
     def add_book(self,dir):
-        dir = By.XPATH,("text",dir)
+        dir = By.XPATH,("text,"+dir)
         self.click(dir)
         self.click(self.menu_button)
         self.click(self.add_book_button)
@@ -154,22 +154,22 @@ class FileManagerPage(BaseAction):
     def add_kjfs(self,path):
         paths = path.split("/")
         for pathi in paths:
-            self.click((By.XPATH,("text",pathi)))
+            self.click((By.XPATH,("text,"+pathi)))
         self.click(self.menu_button)
         self.click(self.add_kj)
         self.home()
-        if self.find_element((By.XPATH,("text",paths[len(paths)-1]))):
+        if self.find_element((By.XPATH,("text,"+paths[len(paths)-1]))):
             assert 1
         else:
             assert 0
 
-    application = By.XPATH,("content-desc","应用")
-    file_manager = By.XPATH,("text","文件管理器")
+    application = By.XPATH,("content-desc,应用")
+    file_manager = By.XPATH,("text,文件管理器")
     # set as home
     def set_home(self,path):
         paths = path.split("/")
         for pathi in paths:
-            self.click((By.XPATH, ("text", pathi)))
+            self.click((By.XPATH, ("text,"+pathi)))
         self.click(self.menu_button)
         self.click(self.setashome)
 
@@ -185,7 +185,7 @@ class FileManagerPage(BaseAction):
         self.back_home()
     # 还原set as home
     def back_home(self):
-        father = By.XPATH,("text","父目录")
+        father = By.XPATH,("text,父目录")
         self.click(father)
         self.click(self.menu_button)
         self.click(self.setashome)
@@ -195,7 +195,7 @@ class FileManagerPage(BaseAction):
     def all_select(self,path):
         paths = path.split("/")
         for pathi in paths:
-            self.click((By.XPATH, ("text", pathi)))
+            self.click((By.XPATH, ("text,"+pathi)))
         self.click(self.menu_button)
         self.click(self.all_select_button)
         if self.find_element(self.is_select_button):

@@ -1,4 +1,4 @@
 .pytest_cache
 .idea
 _pycache_/
-main.py
+test.py

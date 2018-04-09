@@ -4,18 +4,22 @@ sys.path.append(os.getcwd())
 from appium import webdriver
 
 
-def get_driver(package,activity):
+# def get_driver(package,activity):
+def get_driver():
     # server 启动参数
     desired_caps = {}
     # 设备信息
     desired_caps['platformName'] = 'Android'
     desired_caps['platformVersion'] = '5.1'
+    # desired_caps['platformVersion'] = '7.0'
     desired_caps['deviceName'] = '192.168.56.101:5555'
     # app的信息
-    # desired_caps['appPackage'] = 'com.android.settings'
-    desired_caps['appPackage'] = package
-    # desired_caps['appActivity'] = '.Settings'
-    desired_caps['appActivity'] = activity
+    desired_caps['appPackage'] = 'com.android.settings'
+    # desired_caps['appPackage'] = package
+    desired_caps['appActivity'] = '.Settings'
+    # desired_caps['appActivity'] = activity
+    # 使用automator2获取toast（也可解决中文乱码）
+    desired_caps['automationName'] = 'Uiautomator2'
     # 解决输入中文
     desired_caps['unicodeKeyboard'] = True
     desired_caps['resetKeyboard'] = True
